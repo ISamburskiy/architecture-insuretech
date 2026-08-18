@@ -15,9 +15,33 @@ spec:
       containers:
         - name: scaletest
           image: ghcr.io/yandex-practicum/scaletestapp@sha256:eff20ae3ae2d596375f9ed6d612a78d149a35a66cd2907ea90d7175ca918c993
+          resources:
+            limits:
+              memory: "3Mi" 
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+            
 ---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: scaletest-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: scaletest-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,5 +51,5 @@ spec:
   selector:
     app: scaletest
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
