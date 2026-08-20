@@ -1,0 +1,33 @@
+type Client {
+  id: ID!
+  name: String!
+  age: Int!
+  documents: [Document!]
+  relatives: [Relative!]
+}
+
+type Document {
+  id: ID!
+  clientId: String!
+  type: String!
+  number: String
+  issueDate: String
+  expiryDate: String
+  client: Client!
+}
+
+type Relative {
+  id: ID!
+  clientId: String!
+  relationType: String!
+  name: String!
+  age: Int!
+  client: Client!
+}
+
+type Query {
+  client(id: ID!): Client
+  # Если нужен поиск по ID клиента без загрузки самого клиента
+  clientDocuments(clientId: String!): [Document!]
+  clientRelatives(clientId: String!): [Relative!]
+}
