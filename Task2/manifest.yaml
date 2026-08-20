@@ -14,10 +14,11 @@ spec:
     spec:
       containers:
         - name: scaletest
-          image: ghcr.io/yandex-practicum/scaletestapp@sha256:eff20ae3ae2d596375f9ed6d612a78d149a35a66cd2907ea90d7175ca918c993
+          image: ghcr.io/yandex-practicum/scaletestapp:latest
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: "3Mi" 
+              memory: "15Mi" 
           ports:
             - containerPort: 8080
             
@@ -39,7 +40,7 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 80
+          averageUtilization: 30
 ---
 
 apiVersion: v1
