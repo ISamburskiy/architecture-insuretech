@@ -21,5 +21,9 @@ YA PR sprint 8
 ![alt text](./task2/image-3.png)
 
 
+## Task 3
+Описание и новое схема в папке Task3.
+
+
 ## Task 5
 Схема описана в файле schema.gql
